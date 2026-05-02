@@ -1,0 +1,43 @@
+markets:
+  BTC/USD:
+    state: ACTIVE
+    bucket: CRYPTO_MAJOR
+    enabled_families:
+    - STRUCTURAL_FRACTAL
+    - MEAN_REVERSION
+    - LIQUIDITY_SMC
+    rationale: Default initialization.
+  ETH/USD:
+    state: ACTIVE
+    bucket: CRYPTO_MAJOR
+    enabled_families:
+    - STRUCTURAL_FRACTAL
+    - LIQUIDITY_SMC
+    rationale: Default initialization.
+  SOL/USD:
+    state: ACTIVE
+    bucket: CRYPTO_ALT
+    enabled_families:
+    - STRUCTURAL
+    rationale: Approved via Hermes run run_test_002
+strategy_families:
+  STRUCTURAL_FRACTAL:
+    global_state: ACTIVE
+    disabled_in: []
+    rationale: Core trend following component.
+  MEAN_REVERSION:
+    global_state: ACTIVE
+    disabled_in: []
+    rationale: Ranging environments.
+  LIQUIDITY_SMC:
+    global_state: ACTIVE
+    disabled_in: []
+    rationale: Volatile environments.
+policy_rules:
+  universe_changes_require_human_approval: true
+  max_policy_changes_per_week: 5
+  hermes_can_propose: true
+  hermes_can_apply: false
+hermes_action_handoff:
+  pending_dir: docs/hermes_actions/
+  completed_actions: []

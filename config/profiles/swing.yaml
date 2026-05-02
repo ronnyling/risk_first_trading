@@ -1,0 +1,33 @@
+# ======================================================================
+# Trading Horizon Profile: Swing
+# Phase 17: Config-only. No logic changes.
+# ======================================================================
+# Hermes HTF: 4H
+# MTF LTF:    1H
+# Execution:  15m-1H
+# Risk:       1.5% per trade, 5% portfolio
+# Families:   Structural, Mean Reversion, Liquidity
+# ======================================================================
+
+profile_id: swing
+description: "Swing profile: 4H Hermes HTF, 1H MTF LTF, structural + mean reversion + liquidity families"
+
+timeframes:
+  hermes_htf: "4H"
+  mtf_ltf: "1H"
+  execution_tf:
+    - "15m"            # strictly < mtf_ltf "1H"
+
+risk:
+  base_risk: 0.015            # 1.5% per trade
+  max_portfolio_risk: 0.05    # 5% total
+
+mtf:
+  inertia_bars: 3
+  volatility_floor_pct: 0.5
+
+families:
+  structural_fractal: true
+  mean_reversion: true
+  liquidity_smc: true
+  chaos_optional: false

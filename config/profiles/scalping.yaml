@@ -1,0 +1,33 @@
+# ======================================================================
+# Trading Horizon Profile: Scalping
+# Phase 17: Config-only. No logic changes.
+# ======================================================================
+# Hermes HTF: 15m
+# MTF LTF:    5m
+# Execution:  1m-5m
+# Risk:       0.25% per trade, 1% portfolio
+# Families:   Structural, Mean Reversion
+# ======================================================================
+
+profile_id: scalping
+description: "Scalping profile: fast timeframes, tight risk, structural + mean reversion families only"
+
+timeframes:
+  hermes_htf: "15m"
+  mtf_ltf: "5m"
+  execution_tf:
+    - "1m"            # strictly < mtf_ltf "5m"
+
+risk:
+  base_risk: 0.0025          # 0.25% per trade
+  max_portfolio_risk: 0.01   # 1% total
+
+mtf:
+  inertia_bars: 2
+  volatility_floor_pct: 0.4
+
+families:
+  structural_fractal: true
+  mean_reversion: true
+  liquidity_smc: false
+  chaos_optional: false

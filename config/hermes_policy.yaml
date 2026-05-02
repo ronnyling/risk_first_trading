@@ -1,0 +1,33 @@
+version: "1.0"
+rules:
+  - name: "trend_regime"
+    condition: "regime == 'trending'"
+    action: "activate_style"
+    params:
+      style: "trend"
+      weight: 0.8
+
+  - name: "range_regime"
+    condition: "regime == 'ranging'"
+    action: "activate_style"
+    params:
+      style: "mean_reversion"
+      weight: 0.7
+
+  - name: "drawdown_pause"
+    condition: "strategy.drawdown > 0.15"
+    action: "pause_strategy"
+    params:
+      cooldown_bars: 50
+
+  - name: "high_correlation_cap"
+    condition: "pair_correlation > 0.8"
+    action: "cap_combined"
+    params:
+      max_combined_weight: 0.6
+
+  - name: "global_risk_down"
+    condition: "portfolio.drawdown > 0.10"
+    action: "reduce_all"
+    params:
+      scale: 0.5

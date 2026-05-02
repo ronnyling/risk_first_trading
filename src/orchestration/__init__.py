@@ -1,0 +1,1 @@
+"""Strategy family orchestration — enforces family exclusivity per asset per bar."""

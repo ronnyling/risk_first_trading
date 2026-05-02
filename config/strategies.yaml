@@ -1,0 +1,44 @@
+strategies:
+  - id: "sma_crossover_v1"
+    module: "src.strategies.sma_crossover"
+    class: "SMACrossoverStrategy"
+    enabled: true
+    params:
+      fast_period: 10
+      slow_period: 30
+
+  - id: "rsi_mean_reversion_v1"
+    module: "src.strategies.rsi_mean_reversion"
+    class: "RSIMeanReversionStrategy"
+    enabled: true
+    params:
+      rsi_period: 14
+      oversold: 30
+      overbought: 70
+
+  - id: "pullback_continuation_v1"
+    module: "src.strategies.pullback_continuation"
+    class: "PullbackContinuationStrategy"
+    enabled: true
+    params:
+      ema_fast: 20
+      ema_slow: 50
+      pullback_tolerance: 0.002
+
+  - id: "vwap_reversion_v1"
+    module: "src.strategies.vwap_reversion"
+    class: "VWAPReversionStrategy"
+    enabled: true
+    params:
+      rsi_period: 14
+      rsi_oversold: 35
+      rsi_overbought: 65
+      vwap_deviation: 0.005
+
+  - id: "stop_run_fade_v1"
+    module: "src.strategies.stop_run_fade"
+    class: "StopRunFadeStrategy"
+    enabled: true
+    params:
+      lookback: 20
+      epsilon_pct: 0.001

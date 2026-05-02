@@ -1,0 +1,2 @@
+[console_scripts]
+hermes-demo = scripts.run_demo:main

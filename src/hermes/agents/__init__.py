@@ -1,0 +1,1 @@
+"""Hermes v2 agent framework — multi-agent market analysis."""

@@ -1,0 +1,33 @@
+# ======================================================================
+# Trading Horizon Profile: Intraday (Default)
+# Phase 17: Config-only. No logic changes.
+# ======================================================================
+# Hermes HTF: 1H
+# MTF LTF:    15m
+# Execution:  5m-15m
+# Risk:       0.5% per trade, 2.5% portfolio
+# Families:   Structural, Mean Reversion
+# ======================================================================
+
+profile_id: intraday_default
+description: "Default intraday profile: 1H Hermes HTF, 15m MTF LTF, structural + mean reversion families"
+
+timeframes:
+  hermes_htf: "1H"
+  mtf_ltf: "15m"
+  execution_tf:
+    - "5m"             # strictly < mtf_ltf "15m"
+
+risk:
+  base_risk: 0.005            # 0.5% per trade
+  max_portfolio_risk: 0.025   # 2.5% total
+
+mtf:
+  inertia_bars: 3
+  volatility_floor_pct: 0.5
+
+families:
+  structural_fractal: true
+  mean_reversion: true
+  liquidity_smc: false
+  chaos_optional: false

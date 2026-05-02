@@ -1,0 +1,3 @@
+[submodule "external/hermes-agentic"]
+	path = external/hermes-agentic
+	url = https://github.com/NousResearch/hermes-agent.git

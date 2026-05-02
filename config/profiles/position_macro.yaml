@@ -1,0 +1,33 @@
+# ======================================================================
+# Trading Horizon Profile: Position / Macro
+# Phase 17: Config-only. No logic changes.
+# ======================================================================
+# Hermes HTF: 1D
+# MTF LTF:    4H
+# Execution:  1H-4H
+# Risk:       3.5% per trade, 10% portfolio
+# Families:   Structural, Liquidity
+# ======================================================================
+
+profile_id: position_macro
+description: "Position/macro profile: 1D Hermes HTF, 4H MTF LTF, structural + liquidity families"
+
+timeframes:
+  hermes_htf: "1D"
+  mtf_ltf: "4H"
+  execution_tf:
+    - "1H"             # strictly < mtf_ltf "4H"
+
+risk:
+  base_risk: 0.035            # 3.5% per trade
+  max_portfolio_risk: 0.10    # 10% total
+
+mtf:
+  inertia_bars: 5
+  volatility_floor_pct: 0.4
+
+families:
+  structural_fractal: true
+  mean_reversion: false
+  liquidity_smc: true
+  chaos_optional: false

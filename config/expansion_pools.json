@@ -1,0 +1,40 @@
+{
+  "pools": {
+    "CRYPTO_MAJOR": {
+      "description": "Major cryptocurrencies — high correlation within cluster",
+      "symbols": ["BTC/USD", "ETH/USD"],
+      "correlation_cluster": "CRYPTO_MAJOR"
+    },
+    "CRYPTO_ALT": {
+      "description": "Alternative cryptocurrencies — medium correlation",
+      "symbols": ["SOL/USD", "AVAX/USD", "DOT/USD", "LINK/USD", "MATIC/USD"],
+      "correlation_cluster": "CRYPTO_ALT"
+    },
+    "EQUITIES_ETF": {
+      "description": "Equity ETFs — low correlation vs crypto",
+      "symbols": ["SPY", "QQQ", "IWM", "DIA", "GLD"],
+      "correlation_cluster": "EQUITIES"
+    },
+    "FX_MAJOR": {
+      "description": "Major FX pairs — regime-diversifying",
+      "symbols": ["EURUSD=X", "USDJPY=X", "GBPUSD=X"],
+      "correlation_cluster": "FX"
+    },
+    "COMMODITY": {
+      "description": "Commodity proxies — inflation hedge, uncorrelated",
+      "symbols": ["GLD", "USO", "SLV"],
+      "correlation_cluster": "COMMODITY"
+    }
+  },
+  "expansion_order": [
+    "CRYPTO_ALT",
+    "EQUITIES_ETF",
+    "FX_MAJOR",
+    "COMMODITY"
+  ],
+  "rules": {
+    "max_new_symbols_per_expansion": 3,
+    "min_expected_correlation_reduction": 0.1,
+    "require_bucket_diversity": true
+  }
+}

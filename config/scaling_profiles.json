@@ -1,0 +1,116 @@
+{
+  "active_profile": "LARGE",
+  "profiles": {
+    "SMALL": {
+      "description": "Conservative: 5 symbols, 1H only",
+      "max_symbols": 5,
+      "supported_timeframes": [
+        "1H"
+      ],
+      "default_timeframe": "1H",
+      "poll_interval_seconds": 300,
+      "hermes_scheduling": {
+        "min_interval_minutes": 60,
+        "max_interval_minutes": 1440,
+        "default_interval_minutes": 120,
+        "allowed_hours": null
+      },
+      "concurrency": {
+        "max_parallel_fetches": 3,
+        "max_hermes_batch_symbols": 5,
+        "max_correlation_symbols": 20
+      },
+      "memory_budget": {
+        "max_bars_per_symbol": 250,
+        "max_total_bars": 1250
+      },
+      "rate_limits": {
+        "yfinance_max_requests_per_minute": 10,
+        "yfinance_cooldown_seconds": 6,
+        "max_consecutive_errors": 3
+      },
+      "degradation": {
+        "on_rate_limit": "wait_and_retry",
+        "on_symbol_exceeds_max": "reject_with_warning",
+        "on_api_failure": "skip_symbol_and_continue",
+        "on_partial_data": "allow_with_warning",
+        "on_hermes_timeout_seconds": 120
+      }
+    },
+    "MEDIUM": {
+      "description": "Standard: 20 symbols, 1H + 30m",
+      "max_symbols": 20,
+      "supported_timeframes": [
+        "1H",
+        "30m"
+      ],
+      "default_timeframe": "1H",
+      "poll_interval_seconds": 120,
+      "hermes_scheduling": {
+        "min_interval_minutes": 30,
+        "max_interval_minutes": 720,
+        "default_interval_minutes": 60,
+        "allowed_hours": null
+      },
+      "concurrency": {
+        "max_parallel_fetches": 5,
+        "max_hermes_batch_symbols": 20,
+        "max_correlation_symbols": 20
+      },
+      "memory_budget": {
+        "max_bars_per_symbol": 250,
+        "max_total_bars": 5000
+      },
+      "rate_limits": {
+        "yfinance_max_requests_per_minute": 20,
+        "yfinance_cooldown_seconds": 3,
+        "max_consecutive_errors": 3
+      },
+      "degradation": {
+        "on_rate_limit": "wait_and_retry",
+        "on_symbol_exceeds_max": "reject_with_warning",
+        "on_api_failure": "skip_symbol_and_continue",
+        "on_partial_data": "allow_with_warning",
+        "on_hermes_timeout_seconds": 180
+      }
+    },
+    "LARGE": {
+      "description": "Aggressive: 50 symbols, all timeframes",
+      "max_symbols": 50,
+      "supported_timeframes": [
+        "1H",
+        "30m",
+        "15m"
+      ],
+      "default_timeframe": "1H",
+      "poll_interval_seconds": 60,
+      "hermes_scheduling": {
+        "min_interval_minutes": 15,
+        "max_interval_minutes": 360,
+        "default_interval_minutes": 30,
+        "allowed_hours": null
+      },
+      "concurrency": {
+        "max_parallel_fetches": 8,
+        "max_hermes_batch_symbols": 50,
+        "max_correlation_symbols": 50
+      },
+      "memory_budget": {
+        "max_bars_per_symbol": 250,
+        "max_total_bars": 12500
+      },
+      "rate_limits": {
+        "yfinance_max_requests_per_minute": 30,
+        "yfinance_cooldown_seconds": 2,
+        "max_consecutive_errors": 5
+      },
+      "degradation": {
+        "on_rate_limit": "wait_and_retry",
+        "on_symbol_exceeds_max": "reject_with_warning",
+        "on_api_failure": "skip_symbol_and_continue",
+        "on_partial_data": "allow_with_warning",
+        "on_hermes_timeout_seconds": 300
+      }
+    }
+  }
+}

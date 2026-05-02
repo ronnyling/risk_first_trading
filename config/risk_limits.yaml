@@ -1,0 +1,22 @@
+# ======================================================================
+# FROZEN CONFIGURATION -- DO NOT EDIT WITHOUT RE-RUNNING STRESS SUITE
+# ======================================================================
+# Version:        1.0.0
+# Frozen:         2026-04-28
+# Verified by:    7-scenario stress test (26/26 unit tests pass)
+# SHA-256:        ba52189a8bc08313e887bac379378c9dbd4d9fc7382058f9c0c4d253eadb91a1
+#
+# Governance:
+#   - This file defines the DETERMINISTIC RISK SPINE of the trading system.
+#   - Changes here MUST be justified in writing and re-verified against
+#     the full stress-test suite (scripts/stress_test.py).
+#   - Mid-session edits are PROHIBITED.
+#   - The checksum above covers only the value lines below (excluding this header).
+# ======================================================================
+
+max_leverage: 1.0
+max_drawdown_pct: 0.20
+max_allocation_per_strategy_pct: 0.40
+max_total_exposure_pct: 0.90
+kill_switch_drawdown_pct: 0.25
+cooldown_bars_after_kill: 100

@@ -1,0 +1,77 @@
+# Engine Configuration
+# Single authoritative execution config — paper vs live is a broker endpoint choice only.
+
+# --- Engine Settings ---
+engine:
+  symbols: ["SPY"]  # SPY only for first week; add BTCUSD after validation
+  interval: "1h"
+  data_source: "yfinance"  # "yfinance" for live, "csv" for offline replay
+  csv_path: "data/sample/spy_1h.csv"
+  max_position_pct: 0.95  # max 95% of equity per position
+
+# --- Risk Limits (frozen) ---
+risk:
+  max_leverage: 1.0
+  max_drawdown_pct: 0.20
+  max_allocation_per_strategy_pct: 0.40
+  max_total_exposure_pct: 0.90
+  kill_switch_drawdown_pct: 0.25
+  cooldown_bars_after_kill: 100
+
+# --- Hermes v2.1 Semantics ---
+hermes:
+  version: "v2.1"
+  policy_path: "config/hermes_policy.yaml"
+  confidence_model: "max_structural"  # "max_structural" | "mean"
+  alpha: 0.6  # provisional — Phase 8.5 exploratory result
+  veto_model: "volatility_only"  # "volatility_only" | "any_agent"
+  veto_threshold: 0.3
+
+# --- Broker Settings (MockBroker for replay) ---
+broker:
+  initial_capital: 100000.0
+  slippage_bps: 0.0
+  commission_bps: 0.0
+
+# --- IB Connection (live or paper account — same code path) ---
+ib:
+  host: "127.0.0.1"
+  port: 7497        # 7497 = TWS paper, 7496 = TWS live, 4002 = Gateway paper
+  client_id: 1
+  account: ""       # Leave empty to auto-detect
+
+  # Safety caps
+  max_order_notional: 500.0      # max dollar value per single order
+  max_position_notional: 1000.0  # max dollar value per position
+
+  # Timeout and retry
+  fill_timeout_seconds: 30.0
+  reconnect_attempts: 3
+  reconnect_delay_seconds: 5.0
+
+  # Instrument defaults
+  default_symbol: "SPY"
+  default_exchange: "SMART"
+  default_currency: "USD"
+
+# --- Persistence ---
+persistence:
+  db_path: "data/trading_state.db"
+
+# --- Logging ---
+logging:
+  level: "INFO"
+  json_format: true
+  log_dir: "logs"
+  max_file_size_mb: 100
+  backup_count: 30
+
+# --- Health Check ---
+health:
+  heartbeat_interval_seconds: 30
+  max_heartbeat_misses: 5
+
+# --- Shutdown ---
+shutdown:
+  flush_timeout_seconds: 10
+  save_state_on_exit: true

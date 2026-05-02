@@ -1,0 +1,80 @@
+{
+  "enabled": true,
+  "capabilities": {
+    "optimizer": {
+      "enabled": true,
+      "cadence": "quarterly",
+      "min_fills": 300,
+      "min_oos_fills": 50,
+      "max_changes_per_cycle": 3,
+      "max_changes_per_quarter": 1,
+      "cooldown_days": 30,
+      "min_sharpe_improvement_is": 0.3,
+      "min_sharpe_improvement_oos": 0.2,
+      "monte_carlo_permutations": 1000,
+      "monte_carlo_alpha": 0.05
+    },
+    "leverage": {
+      "enabled": true,
+      "cadence": "quarterly",
+      "min_stability_days": 90,
+      "max_dd_for_evaluation": 0.10,
+      "min_fills": 100,
+      "max_leverage_by_profile": {
+        "SMALL": 1.5,
+        "MEDIUM": 2.0,
+        "LARGE": 3.0
+      }
+    },
+    "policy": {
+      "enabled": true,
+      "cadence": "quarterly",
+      "max_changes_per_policy_per_quarter": 1,
+      "immutable_policies": [
+        "risk_limits.yaml",
+        "engine.yaml",
+        "strategies.yaml"
+      ],
+      "rollback_window_days": 30
+    },
+    "llm": {
+      "enabled": true,
+      "cadence": "monthly",
+      "min_fills": 200,
+      "min_oos_trades": 50,
+      "cooldown_days": 30,
+      "candidates_per_run": 10
+    },
+    "mutation": {
+      "enabled": true,
+      "cadence": "continuous",
+      "review_cadence": "quarterly",
+      "min_paper_trades": 30,
+      "cooling_off_days": 60,
+      "admission_criteria": {
+        "min_sharpe": 0.5,
+        "max_drawdown": 0.15,
+        "min_win_rate": 0.45,
+        "min_trades": 30,
+        "min_regimes": 2,
+        "max_correlation_with_parent": 0.7,
+        "max_catastrophic_loss": 0.05
+      }
+    }
+  },
+  "drift_detection": {
+    "enabled": true,
+    "check_interval_days": 7,
+    "mild_threshold": 0.1,
+    "moderate_threshold": 0.2,
+    "severe_threshold": 0.3,
+    "critical_dd_threshold": 0.15,
+    "auto_revert_dd_threshold": 0.15,
+    "revert_cooldown_days": 90
+  },
+  "frequency_limits": {
+    "max_adopted_per_capability_per_quarter": 1,
+    "max_total_adopted_per_quarter": 2,
+    "cooldown_between_adoptions_days": 30
+  }
+}
