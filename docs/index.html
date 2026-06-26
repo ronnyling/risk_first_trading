@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Trading Framework</title>
+<style>
+  :root {
+    --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #e6edf3;
+    --muted: #8b949e; --accent: #58a6ff; --green: #3fb950; --yellow: #d29922;
+    --red: #f85149; --purple: #bc8cff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+         background: var(--bg); color: var(--text); line-height: 1.6; }
+  .hero { text-align: center; padding: 4rem 2rem 3rem; border-bottom: 1px solid var(--border); }
+  .hero h1 { font-size: 2.4rem; margin-bottom: 0.5rem; }
+  .hero h1 span { color: var(--accent); }
+  .hero p { color: var(--muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+  .badges { margin-top: 1rem; }
+  .badge { display: inline-block; background: var(--card); border: 1px solid var(--border);
+           border-radius: 6px; padding: 0.3rem 0.8rem; font-size: 0.75rem; color: var(--muted);
+           margin: 0.2rem; }
+  .badge.green { border-color: var(--green); color: var(--green); }
+  .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+  h2 { font-size: 1.4rem; color: var(--accent); margin: 2.5rem 0 1rem;
+       border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+          padding: 1.5rem; transition: border-color 0.2s; }
+  .card:hover { border-color: var(--accent); }
+  .card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+  .card h3 .icon { margin-right: 0.4rem; }
+  .card p { color: var(--muted); font-size: 0.85rem; }
+  .card code { background: rgba(88,166,255,0.1); color: var(--accent);
+               padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.8rem; }
+  .arch-diagram { background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+                  padding: 2rem; margin: 1.5rem 0; text-align: center; font-family: monospace;
+                  font-size: 0.85rem; line-height: 2; overflow-x: auto; }
+  .arch-diagram .flow { color: var(--accent); }
+  .arch-diagram .label { color: var(--muted); }
+  .arch-diagram .highlight { color: var(--green); font-weight: 700; }
+  .principles { list-style: none; }
+  .principles li { padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+                   font-size: 0.9rem; display: flex; align-items: flex-start; }
+  .principles li:last-child { border-bottom: none; }
+  .principles .check { color: var(--green); margin-right: 0.6rem; flex-shrink: 0; }
+  .quickstart { background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+                padding: 1.5rem; margin: 1.5rem 0; }
+  .quickstart pre { background: var(--bg); border-radius: 6px; padding: 1rem;
+                    overflow-x: auto; font-size: 0.85rem; line-height: 1.8; }
+  .quickstart pre .comment { color: var(--muted); }
+  .quickstart pre .cmd { color: var(--green); }
+  .structure { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.8rem; }
+  .structure .item { background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+                     padding: 0.8rem 1rem; font-size: 0.85rem; }
+  .structure .item code { color: var(--accent); font-weight: 600; }
+  .structure .item .desc { color: var(--muted); font-size: 0.78rem; margin-top: 0.2rem; }
+  .docs-link { display: inline-block; margin-top: 1rem; }
+  .docs-link a { color: var(--accent); text-decoration: none; border: 1px solid var(--accent);
+                 border-radius: 6px; padding: 0.5rem 1.2rem; font-size: 0.85rem;
+                 transition: background 0.2s; }
+  .docs-link a:hover { background: rgba(88,166,255,0.1); }
+  footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.75rem;
+           border-top: 1px solid var(--border); margin-top: 2rem; }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1><span>Hermes</span> Trading Framework</h1>
+  <p>A modular, autonomous trading framework where strategies are black boxes and Hermes learns portfolio-level allocation.</p>
+  <div class="badges">
+    <span class="badge green">Python 3.11+</span>
+    <span class="badge">Alpaca</span>
+    <span class="badge">Interactive Brokers</span>
+    <span class="badge">YAML Config</span>
+    <span class="badge">Deterministic Risk</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <h2>Architecture</h2>
+  <div class="arch-diagram">
+    <span class="label">Market Data</span> <span class="flow">(live or CSV)</span>
+    &rarr; <span class="highlight">Regime Detection</span>
+    &rarr; <span class="highlight">Hermes</span> <span class="label">(Allocation)</span>
+    &rarr; <span class="highlight">Risk Veto</span>
+    &rarr; <span class="label">Broker</span> <span class="flow">(Alpaca / Mock)<br></span>
+    <span class="label">Strategies</span> <span class="flow">(black-box)</span>
+    &rarr; <span class="label">Signals</span>
+    &rarr; <span class="highlight">Orders</span>
+  </div>
+
+  <h2>Key Principles</h2>
+  <ul class="principles">
+    <li><span class="check">&#10003;</span> <strong>Single execution path</strong> &mdash; paper vs live is a broker endpoint choice, not a runtime mode</li>
+    <li><span class="check">&#10003;</span> <strong>Strategies are black boxes</strong> &mdash; they generate signals, not allocate capital</li>
+    <li><span class="check">&#10003;</span> <strong>Hermes allocates</strong> &mdash; it decides when and how much to deploy each strategy</li>
+    <li><span class="check">&#10003;</span> <strong>Risk is absolute</strong> &mdash; deterministic veto layer that Hermes cannot override</li>
+    <li><span class="check">&#10003;</span> <strong>All decisions are logged</strong> &mdash; full audit trail for every allocation, veto, and fill</li>
+    <li><span class="check">&#10003;</span> <strong>No hybrid brokers</strong> &mdash; engine rejects CSV market data combined with a live broker</li>
+  </ul>
+
+  <h2>Modules</h2>
+  <div class="cards">
+    <div class="card">
+      <h3><span class="icon">&#9881;</span> Core</h3>
+      <p>Shared types, event bus, and clock. The foundation every module depends on.</p>
+    </div>
+    <div class="card">
+      <h3><span class="icon">&#9733;</span> Strategies</h3>
+      <p>Black-box strategy implementations: SMA crossover, RSI mean reversion, pullback continuation, VWAP reversion, and more.</p>
+    </div>
+    <div class="card">
+      <h3><span class="icon">&#9878;</span> Hermes</h3>
+      <p>Portfolio allocation agent with scoring, conflict resolution, position sizing, and multi-agent coordination.</p>
+    </div>
+    <div class="card">
+      <h3><span class="icon">&#9888;</span> Risk</h3>
+      <p>Deterministic risk veto layer with drawdown ladders, FTMO guards, and profile transitions.</p>
+    </div>
+    <div class="card">
+      <h3><span class="icon">&#9654;</span> Execution</h3>
+      <p>Broker interface with Alpaca, Interactive Brokers, and mock implementations. Safety guards included.</p>
+    </div>
+    <div class="card">
+      <h3><span class="icon">&#9881;</span> Market</h3>
+      <p>Data loading, regime detection, live feeds, CSV adapters, and streaming buffers.</p>
+    </div>
+    <div class="card">
+      <h3><span class="icon">&#128202;</span> Analytics</h3>
+      <p>Performance analytics engine with trade metrics and portfolio analysis.</p>
+    </div>
+    <div class="card">
+      <h3><span class="icon">&#128640;</span> Meta</h3>
+      <p>Policy evolution, drift detection, LLM tuning, and strategy mutation for adaptive optimization.</p>
+    </div>
+    <div class="card">
+      <h3><span class="icon">&#128200;</span> Visualization</h3>
+      <p>Decision annotations, correlation context, price charts, and audit logging for observability.</p>
+    </div>
+  </div>
+
+  <h2>Quick Start</h2>
+  <div class="quickstart">
+    <pre><span class="comment"># Install</span>
+<span class="cmd">pip install -e .</span>
+
+<span class="comment"># Local replay with MockBroker</span>
+<span class="cmd">python scripts/run_demo.py</span>
+
+<span class="comment"># Production (Alpaca — paper or live via env vars)</span>
+<span class="cmd">python scripts/run_engine.py</span>
+
+<span class="comment"># Observability dashboard</span>
+<span class="cmd">pip install streamlit pandas plotly pyyaml</span>
+<span class="cmd">streamlit run dashboard/app.py</span></pre>
+  </div>
+
+  <h2>Project Structure</h2>
+  <div class="structure">
+    <div class="item"><code>src/core/</code><div class="desc">Shared types, events, clock</div></div>
+    <div class="item"><code>src/strategies/</code><div class="desc">Black-box strategy implementations</div></div>
+    <div class="item"><code>src/hermes/</code><div class="desc">Portfolio allocation agent</div></div>
+    <div class="item"><code>src/risk/</code><div class="desc">Deterministic risk veto layer</div></div>
+    <div class="item"><code>src/execution/</code><div class="desc">Broker interface + implementations</div></div>
+    <div class="item"><code>src/engine/</code><div class="desc">Main trading loop (TradingEngine)</div></div>
+    <div class="item"><code>src/market/</code><div class="desc">Data loading, regime detection</div></div>
+    <div class="item"><code>src/monitoring/</code><div class="desc">HealthSupervisor, event logging</div></div>
+    <div class="item"><code>src/analytics/</code><div class="desc">Performance analytics engine</div></div>
+    <div class="item"><code>src/meta/</code><div class="desc">Policy evolution, drift detection</div></div>
+    <div class="item"><code>src/visualization/</code><div class="desc">Charts, audit logging</div></div>
+    <div class="item"><code>config/</code><div class="desc">YAML configuration files</div></div>
+    <div class="item"><code>dashboard/</code><div class="desc">Streamlit observability UI</div></div>
+    <div class="item"><code>docs/</code><div class="desc">Design docs &amp; experiment results</div></div>
+  </div>
+
+  <div class="docs-link">
+    <a href="https://github.com/ronnyling/risk_first_trading">View on GitHub &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  Hermes Trading Framework &mdash; Built by <a href="https://github.com/ronnyling">ronnyling</a>
+</footer>
+
+</body>
+</html>
